@@ -1,0 +1,21 @@
+{
+  "name": "newsexplorer-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "production": "node app.js",
+    "lint": "./node_modules/.bin/eslint '**/*.js' -- ignore-pattern node_modules/ --ignore-pattern public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ezhuchenkov/NewsExplorer-Backend.git"
+  },
+  "author": "Ezhuchenkov Alexandr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ezhuchenkov/NewsExplorer-Backend/issues"
+  },
+  "homepage": "https://github.com/ezhuchenkov/NewsExplorer-Backend#readme"
+}
