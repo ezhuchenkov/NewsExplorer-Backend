@@ -13,5 +13,8 @@ module.exports = {
         "ecmaVersion": 2018
     },
     "rules": {
+      "prefer-rest-params": 0,
+      "no-console": 0,
+      "no-underscore-dangle": 0
     }
 };
