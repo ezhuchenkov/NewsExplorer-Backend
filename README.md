@@ -1,6 +1,6 @@
 # NewsExplorer-Backend
 
-Сервер доступен по адресу [https://ezhuchenkov.tk] ![Йожик](https://github.com/ezhuchenkov/ezhuchenkov.github.io/blob/master/%D0%81%D0%B6.svg)
+Сервер доступен по адресу [https://api.notbadnews.tk] ![Йожик](https://github.com/ezhuchenkov/ezhuchenkov.github.io/blob/master/%D0%81%D0%B6.svg)
 
 
 * команда npm run start запускает сервер;
@@ -26,7 +26,7 @@
 * Реализована валидация запросов с помощью Joi и celebrate;
 * Реализовано логгирование запросов и ошибок
 * Создан облачный сервер и развернуто API
-* Создан домен api.ezhuchenkov.tk и прикреплен к серверу
+* Создан домен api.notbadnews.tk и прикреплен к серверу
 * Выпущены SSL-сертификаты
 * Создан на сервере .env файл и добавлены переменные окружения
 
