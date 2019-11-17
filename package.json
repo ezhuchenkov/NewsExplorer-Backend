@@ -5,7 +5,7 @@
   "main": ".app.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "production": "node app.js",
+    "start": "node app.js",
     "lint": "./node_modules/.bin/eslint '**/*.js' -- ignore-pattern node_modules/ --ignore-pattern public"
   },
   "repository": {
