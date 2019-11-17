@@ -11,7 +11,7 @@ const articlesRoute = require('./routes/articles');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 
-const { PORT = 3000, MONGODB } = process.env;
+const { PORT = 3000, MONGODB = 'mongodb://localhost:27017/articles' } = process.env;
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
