@@ -3,30 +3,35 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const usersRoute = require('./routes/users');
 const articlesRoute = require('./routes/articles');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const { signin, signup } = require('./celebrate/celebrate');
+const { signin, signup } = require('./settings/celebrate');
+const { limiter, createAccountLimiter, singinLimiter } = require('./settings/rateLimiter');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, MONGODB = 'mongodb://localhost:27017/articles' } = process.env;
+
 const app = express();
+app.use(helmet());
+app.use(limiter());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-mongoose.connect('mongodb://localhost:27017/articles', {
+mongoose.connect(MONGODB, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
 });
 app.use(requestLogger);
 
-app.post('/signin', signin, login);
-app.post('/signup', signup, createUser);
+app.post('/signin', singinLimiter, signin, login);
+app.post('/signup', createAccountLimiter, signup, createUser);
 app.use(auth);
 app.use('/users', usersRoute);
 app.use('/articles', articlesRoute);

@@ -1,5 +1,5 @@
 const articles = require('express').Router();
-const { articleCreate, articleDelete } = require('../celebrate/celebrate');
+const { articleCreate, articleDelete } = require('../settings/celebrate');
 const { createArticle, getAllArticles, deleteArticleById } = require('../controllers/articles');
 
 articles.get('/', getAllArticles);
