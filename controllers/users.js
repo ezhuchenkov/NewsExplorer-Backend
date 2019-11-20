@@ -9,7 +9,7 @@ require('dotenv').config();
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-module.exports.createUser = (req, res, next) => {
+const createUser = (req, res, next) => {
   const {
     name, email, password,
   } = req.body;
@@ -31,7 +31,7 @@ module.exports.createUser = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.login = (req, res, next) => {
+const login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
@@ -55,17 +55,17 @@ module.exports.login = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.getAllUsers = (req, res, next) => {
-  User.find({})
-    .then((users) => res.send({ data: users }))
-    .catch(next);
-};
-module.exports.getUserById = (req, res, next) => {
-  User.findById(req.params.id)
+const getUserInformation = (req, res, next) => {
+  // eslint-disable-next-line max-len
+  // предполагается, что пользователь в запросе не передаёт свой id, поэтому id вычисляется по cookies
+  const payload = jwt.verify(req.cookies.jwt, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
+
+  User.findById(payload._id)
     .then((user) => {
-      if (user) {
-        res.send({ data: user });
-      }
+      if (!user) throw Error;
+      res.send({ user: user.name, email: user.email });
     })
     .catch(() => next(new NotFoundError('Такого пользователя не существует')));
 };
+
+module.exports = { createUser, login, getUserInformation };
