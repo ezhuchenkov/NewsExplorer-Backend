@@ -1,5 +1,5 @@
 const requestErrorMessage = 'Какая-то ошибка с Вашими данными';
 const notFoundErrorMessage = 'Ресурс не найден';
-const authErrorErrorMessage = 'Ошибка авторизации';
+const authErrorMessage = 'Ошибка авторизации';
 
-module.exports = { requestErrorMessage, notFoundErrorMessage, authErrorErrorMessage };
+module.exports = { requestErrorMessage, notFoundErrorMessage, authErrorMessage };

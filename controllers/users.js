@@ -5,7 +5,7 @@ const User = require('../models/user');
 const RequestError = require('../errors/req-err');
 const AuthError = require('../errors/auth-err');
 const NotFoundError = require('../errors/not-found-err');
-const { requestErrorMessage, notFoundErrorMessage, authErrorErrorMessage } = require('../settings/messages');
+const { requestErrorMessage, notFoundErrorMessage, authErrorMessage } = require('../settings/messages');
 require('dotenv').config();
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -38,7 +38,7 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       if (!user) {
-        throw new AuthError(authErrorErrorMessage);
+        throw new AuthError(authErrorMessage);
       }
       const token = jwt.sign(
         { _id: user._id },
