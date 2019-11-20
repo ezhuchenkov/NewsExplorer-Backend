@@ -7,8 +7,7 @@ const cookieParser = require('cookie-parser');
 const { signInValidationSettings, signUpValidationSettings } = require('./settings/requestValidation');
 const { limiter, createAccountLimiter, singinLimiter } = require('./settings/rateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const usersRoute = require('./routes/users');
-const articlesRoute = require('./routes/articles');
+const router = require('./routes/index');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 
@@ -32,12 +31,7 @@ app.use(requestLogger);
 app.post('/signin', singinLimiter, signInValidationSettings, login);
 app.post('/signup', createAccountLimiter, signUpValidationSettings, createUser);
 app.use(auth);
-app.use('/users', usersRoute);
-app.use('/articles', articlesRoute);
-app.use('*', (req, res) => {
-  res.status(404).send({ message: 'Page not found' });
-});
-
+app.use('/', router);
 app.use(errorLogger);
 app.use(errors());
 // eslint-disable-next-line no-unused-vars

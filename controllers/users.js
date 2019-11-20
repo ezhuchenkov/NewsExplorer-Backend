@@ -5,6 +5,7 @@ const User = require('../models/user');
 const RequestError = require('../errors/req-err');
 const AuthError = require('../errors/auth-err');
 const NotFoundError = require('../errors/not-found-err');
+const { requestErrorMessage, notFoundErrorMessage, authErrorErrorMessage } = require('../settings/messages');
 require('dotenv').config();
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -22,7 +23,7 @@ const createUser = (req, res, next) => {
     }))
     .then((user) => {
       if (!user) {
-        throw new RequestError('Что-то не так с данными пользователя');
+        throw new RequestError(requestErrorMessage);
       }
       return res.status(201).send({
         _id: user._id, name: user.name, email: user.email,
@@ -37,7 +38,7 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       if (!user) {
-        throw new AuthError('Ошибка авторизации');
+        throw new AuthError(authErrorErrorMessage);
       }
       const token = jwt.sign(
         { _id: user._id },
@@ -65,7 +66,7 @@ const getUserInformation = (req, res, next) => {
       if (!user) throw Error;
       res.send({ user: user.name, email: user.email });
     })
-    .catch(() => next(new NotFoundError('Такого пользователя не существует')));
+    .catch(() => next(new NotFoundError(notFoundErrorMessage)));
 };
 
 module.exports = { createUser, login, getUserInformation };
