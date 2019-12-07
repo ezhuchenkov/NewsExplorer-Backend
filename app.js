@@ -13,7 +13,10 @@ const auth = require('./middlewares/auth');
 
 const { PORT, MONGODB } = process.env;
 const app = express();
-
+app.use(cors(({
+  credentials: true,
+  origin: true,
+})));
 app.use(limiter);
 app.use(helmet());
 app.use(express.json());
