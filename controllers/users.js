@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -51,10 +52,19 @@ const login = (req, res, next) => {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
           sameSite: true,
-        }).send({ message: `Добро пожаловать,${user.name}!`, jwt: token });
+        // }).send({ message: `Добро пожаловать,${user.name}!`, jwt: token, name: user.name });
+        }).send({ message: `Добро пожаловать,${user.name}!`, name: user.name });
     })
     .catch(next);
 };
+
+const logout = (req, res, next) => res
+  .status(201)
+  .cookie('jwt', '', {
+    maxAge: 0,
+    httpOnly: true,
+    sameSite: false,
+  }).send({ message: 'Возвращайся!' });
 
 const getUserInformation = (req, res, next) => {
   // eslint-disable-next-line max-len
@@ -69,4 +79,6 @@ const getUserInformation = (req, res, next) => {
     .catch(() => next(new NotFoundError(notFoundErrorMessage)));
 };
 
-module.exports = { createUser, login, getUserInformation };
+module.exports = {
+  createUser, login, logout, getUserInformation,
+};

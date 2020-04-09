@@ -9,7 +9,7 @@ const { signInValidationSettings, signUpValidationSettings } = require('./settin
 const { limiter, createAccountLimiter, singinLimiter } = require('./settings/rateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes/index');
-const { createUser, login } = require('./controllers/users');
+const { createUser, login, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 
 const { PORT, MONGODB } = process.env;
@@ -34,6 +34,7 @@ app.use(requestLogger);
 
 app.post('/signin', singinLimiter, signInValidationSettings, login);
 app.post('/signup', createAccountLimiter, signUpValidationSettings, createUser);
+app.post('/logout', logout);
 app.use(auth);
 app.use('/', router);
 app.use(errorLogger);
