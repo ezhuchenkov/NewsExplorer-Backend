@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js",
-    "deploy": "scp -r ./* ezhuchenkov@84.201.171.112:/home/ezhuchenkov/NewsExplorer-Backend",
+    "deploy": "scp -r ./* ezhuchenkov@84.201.149.84:/home/ezhuchenkov/NewsExplorer-Backend",
     "lint": "./node_modules/.bin/eslint '**/*.js' -- ignore-pattern node_modules/ --ignore-pattern public"
   },
   "repository": {
