@@ -24,9 +24,10 @@ const createArticle = (req, res, next) => {
     })
     .catch(next);
 };
+
 const getAllArticles = (req, res, next) => {
-  Article.find({})
-    .populate('owner')
+  const owner = jwt.verify(req.cookies.jwt, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret')._id;
+  Article.find({ owner })
     .then((articles) => res.send({ data: articles }))
     .catch(next);
 };
